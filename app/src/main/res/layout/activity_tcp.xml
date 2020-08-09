@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".Tcp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tcp"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:textSize="25sp"
+        >
+
+    </TextView>
+    <EditText
+        android:id="@+id/companyname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Companyname"
+        android:textSize="18sp">
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/salary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="salary"
+        android:textSize="18sp">
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="time"
+        android:textSize="18sp">
+
+    </EditText>
+
+    <Button
+    android:id="@+id/post"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Post"
+    android:textSize="18sp">
+
+</Button>
+
+
+    <Button
+        android:id="@+id/request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Go to Request activity"
+        android:textSize="18sp">
+
+    </Button>
+
+
+
+</LinearLayout>
