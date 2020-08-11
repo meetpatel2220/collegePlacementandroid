@@ -65,6 +65,23 @@
                 android:id="@+id/accepted">
 
             </Button>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Student side request"
+                android:textSize="18sp"
+                android:id="@+id/strequest">
+
+            </Button> <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Student side accepted"
+            android:textSize="18sp"
+            android:id="@+id/staccepted">
+
+        </Button>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

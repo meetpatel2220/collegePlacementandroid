@@ -67,31 +67,32 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Postviewholder
                 sharedPreferences = context.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
 
-                Toast.makeText(context,hero.get(position).getCompany()+ hero.get(position).getSalary()
-                        +hero.get(position).getTime()+hero.get(position).get_id(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context,hero.get(position).getCompany()+ hero.get(position).getSalary()
+//                        +hero.get(position).getTime()+hero.get(position).get_id(), Toast.LENGTH_SHORT).show();
 
-//                JsonObject object=new JsonObject();
-//                object.addProperty("company",hero.get(position).getCompany());
-//                object.addProperty("salary",hero.get(position).getSalary());
-//                object.addProperty("time",hero.get(position).getTime());
-//                object.addProperty("companyid",hero.get(position).get_id());
+                JsonObject object=new JsonObject();
+                object.addProperty("company",hero.get(position).getCompany());
+                object.addProperty("salary",hero.get(position).getSalary());
+                object.addProperty("time",hero.get(position).getTime());
+                object.addProperty("companyid",hero.get(position).get_id());
 
-//                Call<TcpModel> call=api.getRegisterDetails(sharedPreferences.getString("token",""),object);
-//
-//       call.enqueue(new Callback<TcpModel>() {
-//           @Override
-//           public void onResponse(Call<TcpModel> call, Response<TcpModel> response) {
-//
-//               if (response.body().getSuccess().equals(true)) {
-//                   Toast.makeText(context, "Profile send done", Toast.LENGTH_SHORT).show();
-//               }
-//           }
-//
-//           @Override
-//           public void onFailure(Call<TcpModel> call, Throwable t) {
-//
-//           }
-//       });
+                Call<ProfileModel> call=api.getRequestDetails(sharedPreferences.getString("token",""),object);
+
+       call.enqueue(new Callback<ProfileModel>() {
+           @Override
+           public void onResponse(Call<ProfileModel> call, Response<ProfileModel> response) {
+
+               if (response.body().getSuccess().equals(true)) {
+                   Toast.makeText(context, "company send done", Toast.LENGTH_SHORT).show();
+               }
+           }
+
+           @Override
+           public void onFailure(Call<ProfileModel> call, Throwable t) {
+
+
+           }
+       });
 
 
             }

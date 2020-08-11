@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +29,7 @@ public class AllCompany extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
 
     EditText username,mobileno,address;
-    Button post;
+    Button post,strequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,17 @@ public class AllCompany extends AppCompatActivity {
         mobileno=findViewById(R.id.mobileno);
         address=findViewById(R.id.address);
         post=findViewById(R.id.post);
+        strequest=findViewById(R.id.strequest);
+
+        strequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent in=new Intent(AllCompany.this,Student_request.class);
+                startActivity(in);
+
+            }
+        });
 
         post.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,9 +68,10 @@ public class AllCompany extends AppCompatActivity {
                         .baseUrl(ApiProfile.BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                ApiProfile api=retrofit.create(ApiProfile.class);
+           //     ApiProfile api=RetrofitClientinsttancePost.getRetrofit().create(ApiProfile.class);
 
                 // Api api=RetrofitClientinsttance.getRetrofit().create(Api.class);
+                ApiProfile api=retrofit.create(ApiProfile.class);
 
 
                 sharedPreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
@@ -69,21 +82,26 @@ public class AllCompany extends AppCompatActivity {
                 object.addProperty("mobileno",mobileno1);
                 object.addProperty("address",address1);
 
-                Call<TcpModel> call=api.getRegisterDetails(sharedPreferences.getString("token",""),object);
 
-                call.enqueue(new Callback<TcpModel>() {
+
+             //   Toast.makeText(AllCompany.this, sharedPreferences.getString("token",""), Toast.LENGTH_SHORT).show();
+                Call<ProfileModel> call=api.getProfileDetails(sharedPreferences.getString("token",""),object);
+
+                call.enqueue(new Callback<ProfileModel>() {
                     @Override
-                    public void onResponse(Call<TcpModel> call, Response<TcpModel> response) {
+                    public void onResponse(Call<ProfileModel> call, Response<ProfileModel> response) {
 
                         if (response.body().getSuccess().equals(true)) {
                             Toast.makeText(AllCompany.this, "Profile send done", Toast.LENGTH_SHORT).show();
                         }
-
+                        if (response.body().getSuccess().equals(false)) {
+                            Toast.makeText(AllCompany.this, "Profile send request failed", Toast.LENGTH_SHORT).show();
+                        }
 
                         }
 
                     @Override
-                    public void onFailure(Call<TcpModel> call, Throwable t) {
+                    public void onFailure(Call<ProfileModel> call, Throwable t) {
 
                     }
                 });
