@@ -2,6 +2,7 @@ package com.meet.collegeplacement;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Tcp extends AppCompatActivity {
 
     EditText companyname,salary,time;
-    Button post,request;
+    Button post,request,all;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,16 @@ public class Tcp extends AppCompatActivity {
         post=findViewById(R.id.post);
         request=findViewById(R.id.request);
 
+        all=findViewById(R.id.all);
+
+        all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent in=new Intent(Tcp.this,AllCompany.class);
+                startActivity(in);
+            }
+        });
 
         post.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,41 +54,39 @@ public class Tcp extends AppCompatActivity {
                 String salary1=salary.getText().toString();
                 String time1=time.getText().toString();
 
-                Gson gson=new GsonBuilder()
-                        .setLenient()
-                        .create();
-                Retrofit retrofit=new Retrofit.Builder()
+                 Retrofit retrofit=new Retrofit.Builder()
                         .baseUrl(ApiTcp.BASE_URL)
-                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
                 ApiTcp apiTcp=retrofit.create(ApiTcp.class);
                 JsonObject object=new JsonObject();
-                object.addProperty("companyname",companyname1);
+                object.addProperty("company",companyname1);
                 object.addProperty("salary",salary1);
                 object.addProperty("time",time1);
 
-                Call<RegisterModel> call=apiTcp.getRegisterDetails(object);
+                Call<TcpModel> call=apiTcp.getRegisterDetails(object);
 
-                call.enqueue(new Callback<RegisterModel>() {
+                call.enqueue(new Callback<TcpModel>() {
                     @Override
-                    public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
+                    public void onResponse(Call<TcpModel> call, Response<TcpModel> response) {
 
-                        RegisterModel registerModel=response.body();
-
-
-                        if(registerModel.getSuccess()){
+                        if(response.body().getSuccess().equals(true)){
                             Toast.makeText(Tcp.this, "Company Post Successful", Toast.LENGTH_SHORT).show();
 
-                        }else {
-                            Toast.makeText(Tcp.this, "company fail", Toast.LENGTH_SHORT).show();
+                        }
+                        if(response.body().getSuccess().equals(false)){
+                            Toast.makeText(Tcp.this, "Company Post fail", Toast.LENGTH_SHORT).show();
 
                         }
+
+
+
 
                     }
 
                     @Override
-                    public void onFailure(Call<RegisterModel> call, Throwable t) {
+                    public void onFailure(Call<TcpModel> call, Throwable t) {
 
                     }
                 });

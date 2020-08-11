@@ -10,7 +10,7 @@ import retrofit2.http.POST;
 
 public interface Api {
 
-    String BASE_URL = "https://college-placement.herokuapp.com/api/auth/";
+    String BASE_URL = "https://college-app1.herokuapp.com/api/auth/";
 
     @POST("login")
     Call<LoginModel> getLoginDetails(@Body JsonObject object);

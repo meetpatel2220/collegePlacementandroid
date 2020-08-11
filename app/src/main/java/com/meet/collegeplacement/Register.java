@@ -66,12 +66,13 @@ public class Register extends AppCompatActivity {
                         RegisterModel registerModel=response.body();
 
 
-                        if(registerModel.getSuccess()){
-                            Toast.makeText(Register.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                        if (response.body().getSuccess().equals(true)){
+                            Toast.makeText(Register.this,"Registration successful", Toast.LENGTH_SHORT).show();
+
+                          //  Toast.makeText(Login.this, ""+loginModel.getToken().toString(), Toast.LENGTH_SHORT).show();
 
                         }else {
                             Toast.makeText(Register.this, "Registration fail", Toast.LENGTH_SHORT).show();
-
                         }
 
                     }
